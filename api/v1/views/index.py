@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """ """
-from api.v1.views.index import app_views
-from flask import app, jsonify
+from api.v1.views import app_views
+from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 
 
-app.route('/status', methods=['GET'], strict_slashes=False)
-def status():
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
+def get_status():
     return jsonify({"status": "OK"})
 
 
