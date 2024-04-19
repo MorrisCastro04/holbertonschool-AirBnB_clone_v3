@@ -54,6 +54,8 @@ def post_place(city_id):
         abort(400, "Not a JSON")
     if "user_id" not in request.get_json():
         abort(400, "Missing user_id")
+    if "user_id" not in request.get_json():
+        abort(400, "Missing user_id")
     if "name" not in request.get_json():
         abort(400, "Missing name")
     data = request.get_json()
