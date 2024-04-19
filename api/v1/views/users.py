@@ -6,19 +6,17 @@ from api.v1.views import app_views
 from models.user import User
 
 
-@app_views.route("/api/users", methods=["GET"], strict_slashes=False)
+@app_views.route("/users", methods=["GET"], strict_slashes=False)
 def get_users(user_id):
     """Retrieves the list of all user objects"""
     users = storage.get(User, user_id)
-    if users is None:
-        abort(404)
     users_list = []
     for user in users:
         users_list.append(user.to_dict())
     return jsonify(users_list)
 
 
-@app_views.route("/api/users/<user_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/users/<user_id>", methods=["GET"], strict_slashes=False)
 def get_user(user_id):
     """Retrieves a user object based on its id"""
     user = storage.get(User, user_id)
@@ -27,10 +25,10 @@ def get_user(user_id):
     return jsonify(user.to_dict())
 
 
-@app_views.route("/api/users/<user_id>", methods=["DELETE"], strict_slashes=False)
+@app_views.route("/users/<user_id>", methods=["DELETE"], strict_slashes=False)
 def delete_user(user_id):
     """Deletes a user object based on its id"""
-    user = storage.get("User", user_id)
+    user = storage.get(User, user_id)
     if not user:
         abort(404)
     else:
@@ -39,7 +37,7 @@ def delete_user(user_id):
         return jsonify({}, 200)
 
 
-@app_views.route("/api/users", methods=["POST"], strict_slashes=False)
+@app_views.route("/users", methods=["POST"], strict_slashes=False)
 def post_user():
     """Creates a new user object"""
     if not request.is_json:
@@ -54,7 +52,7 @@ def post_user():
     return jsonify(new_user.to_dict()), 201
 
 
-@app_views.route("/api/users/<user_id>", methods=["PUT"], strict_slashes=False)
+@app_views.route("/users/<user_id>", methods=["PUT"], strict_slashes=False)
 def put_user(user_id):
     """Updates a user object based on its id"""
     user = storage.get(User, user_id)
