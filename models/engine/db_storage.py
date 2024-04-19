@@ -84,7 +84,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """"""
-        if cls not in classes.all(cls):
+        if cls not in classes.values():
             return None
         all_cls = models.storage.all(cls)
         for value in all_cls.values():
