@@ -10,7 +10,7 @@ from models.amenity import Amenity
 
 
 @app_views.route("/amenities", methods=["GET"], strict_slashes=False)
-def get_states():
+def get_amenities():
     """
     Retrieves the list of all amenities objects.
     """
@@ -23,7 +23,7 @@ def get_states():
 
 @app_views.route("/amenities/<amenity_id>",
                  methods=["GET"], strict_slashes=False)
-def get_state(amenity_id):
+def get_amenity(amenity_id):
     """
     Retrieves a State object based on its id.
     """
@@ -35,7 +35,7 @@ def get_state(amenity_id):
 
 @app_views.route("/amenities/<amenity_id>",
                  methods=["DELETE"], strict_slashes=False)
-def delete_state(amenity_id):
+def delete_amenity(amenity_id):
     """
     Deletes a State object based on its id.
     """
@@ -49,7 +49,7 @@ def delete_state(amenity_id):
 
 
 @app_views.route("/amenities", methods=["POST"], strict_slashes=False)
-def post_state():
+def post_amenity():
     """
     Creates a new State object.
     """
@@ -65,7 +65,7 @@ def post_state():
 
 @app_views.route("/amenities/<amenity_id>",
                  methods=["PUT"], strict_slashes=False)
-def update_state(amenity_id):
+def update_amenity(amenity_id):
     """
     Updates a State object based on its id.
     """
