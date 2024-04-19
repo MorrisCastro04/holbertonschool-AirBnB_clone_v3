@@ -24,7 +24,7 @@ def get_places(city_id):
 @app_views.route("/places/<place_id>", methods=["GET"], strict_slashes=False)
 def get_place(place_id):
     """Retrieves a place object based on its id"""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
     return jsonify(place.to_dict())
@@ -34,7 +34,7 @@ def get_place(place_id):
                  strict_slashes=False)
 def delete_place(place_id):
     """Deletes a place object based on its id"""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
     else:
@@ -47,7 +47,7 @@ def delete_place(place_id):
                  strict_slashes=False)
 def post_place(city_id):
     """Creates a new place object"""
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if not city:
         abort(404)
     if not request.is_json:
