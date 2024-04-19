@@ -27,7 +27,7 @@ def get_state(state_id):
     Retrieves a State object based on its id.
     """
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     return jsonify(state.to_dict())
 
@@ -38,7 +38,7 @@ def delete_state(state_id):
     Deletes a State object based on its id.
     """
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     else:
         storage.delete(state)

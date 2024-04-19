@@ -12,14 +12,6 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
-if __name__ == "__main__":
-
-    host = os.getenv('HBNB_API_HOST', '0.0.0.0')
-    port = os.getenv('HBNB_API_PORT', '5000')
-
-    app.run(host=host, port=port, threaded=True)
-
-
 # Status route
 @app.teardown_appcontext
 def close_storage(self):
@@ -30,6 +22,16 @@ def close_storage(self):
 @app.errorhandler(404)
 def handle_not_found_error(error):
     """Handles 404 errors by returning a JSON-formatted response"""
-    response = jsonify({"error": "Not found"})
-    response.status_code = 404
-    return response
+    return {"error": "Not found"}, 404
+
+
+if __name__ == "__main__":
+
+    host = os.getenv("HBNB_API_HOST")
+    port = os.getenv("HBNB_API_PORT")
+    if not host:
+        host = "0.0.0.0"
+    if not port:
+        port = "5000"
+
+    app.run(host=host, port=port, threaded=True)
