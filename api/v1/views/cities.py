@@ -54,13 +54,13 @@ def post_city(state_id):
     """
     Creates a new city
     """
+    state_name = storage.get(State, state_id)
+    if not state_name:
+        abort(404)
     if not request.is_json:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     if "name" not in request.get_json():
         abort(400, "Missing name")
-    state_name = storage.get(State, state_id)
-    if state_name is None:
-        abort(404)
     data = request.get_json()
     city = City(**data)
     city.state_id = state_id
