@@ -56,6 +56,8 @@ def post_review(place_id):
         abort(400, "Not a JSON")
     if "user_id" not in request.get_json():
         abort(400, "Missing user_id")
+    if "user_id" is None:
+        abort(404)
     if "text" not in request.get_json():
         abort(400, "Missing text")
     data = request.get_json()
