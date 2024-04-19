@@ -82,5 +82,5 @@ def put_city(city_id):
     for key, value in data.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(city_name, key, value)
-    city_name.save()
+    storage.save()
     return jsonify(city_name.to_dict()), 200
