@@ -57,7 +57,23 @@ def post_place(city_id):
     if "name" not in request.get_json():
         abort(400, "Missing name")
     data = request.get_json()
-    data["city_id"] = city_id
+    data[city_id] = city_id
     new_place = Place(**data)
     new_place.save()
     return jsonify(new_place.to_dict()), 201
+
+
+@app_views.route("/places/<place_id>", methods=["PUT"], strict_slashes=False)
+def put_place(place_id):
+    """Updates a place object based on its id"""
+    place = storage.get(Place, place_id)
+    if not place:
+        abort(404)
+    if not request.is_json:
+        abort(400, "Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ["id", "user_id", "city_id", "created_at", "updated_at"]:
+            setattr(place, key, value)
+    place.save()
+    return jsonify(place.to_dict()), 200
