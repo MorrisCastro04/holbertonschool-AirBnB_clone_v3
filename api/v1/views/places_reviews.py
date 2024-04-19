@@ -5,13 +5,14 @@ from flask import jsonify, request, abort
 from models import storage
 from api.v1.views import app_views
 from models.review import Review
+from models.place import Place
 
 
 @app_views.route("/places/<place_id>/reviews", methods=["GET"],
                  strict_slashes=False)
 def get_reviews(place_id):
     """Retrieves the list of all review objects"""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
     reviews = place.reviews
@@ -25,7 +26,7 @@ def get_reviews(place_id):
                  strict_slashes=False)
 def get_review(review_id):
     """Retrieves a review object based on its id"""
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if not review:
         abort(404)
     return jsonify(review.to_dict())
@@ -35,7 +36,7 @@ def get_review(review_id):
                  strict_slashes=False)
 def delete_review(review_id):
     """Deletes a review object based on its id"""
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if not review:
         abort(404)
     else:
@@ -48,7 +49,7 @@ def delete_review(review_id):
                  strict_slashes=False)
 def post_review(place_id):
     """Creates a new review object"""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
     if not request.is_json:
@@ -68,7 +69,7 @@ def post_review(place_id):
                  strict_slashes=False)
 def put_review(review_id):
     """Updates a review object"""
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if not review:
         abort(404)
     if not request.is_json:
