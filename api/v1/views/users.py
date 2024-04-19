@@ -9,7 +9,7 @@ from models.user import User
 @app_views.route("/users", methods=["GET"], strict_slashes=False)
 def get_users(user_id):
     """Retrieves the list of all user objects"""
-    users = storage.get(User, user_id)
+    users = storage.all(User).values()
     if users is None:
         abort(404)
     users_list = []
