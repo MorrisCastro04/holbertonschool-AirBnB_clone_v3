@@ -10,7 +10,7 @@ from models.user import User
 def get_users(user_id):
     """Retrieves the list of all user objects"""
     users = storage.get(User, user_id)
-    if not users:
+    if users is None:
         abort(404)
     users_list = []
     for user in users:
@@ -22,7 +22,7 @@ def get_users(user_id):
 def get_user(user_id):
     """Retrieves a user object based on its id"""
     user = storage.get(User, user_id)
-    if not user:
+    if user is None:
         abort(404)
     return jsonify(user.to_dict())
 
@@ -58,7 +58,7 @@ def post_user():
 def put_user(user_id):
     """Updates a user object based on its id"""
     user = storage.get(User, user_id)
-    if not user:
+    if user is None:
         abort(404)
     if not request.is_json:
         abort(400, "Not a JSON")
