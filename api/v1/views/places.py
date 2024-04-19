@@ -5,7 +5,6 @@ from models import storage
 from api.v1.views import app_views
 from models.place import Place
 from models.city import City
-from models.user import User
 
 
 @app_views.route("/cities/<city_id>/places", methods=["GET"],
@@ -57,9 +56,6 @@ def post_place(city_id):
         abort(400, "Missing user_id")
     if "name" not in request.get_json():
         abort(400, "Missing name")
-    user = storage.get(User, request.get_json['user_id'])
-    if user is None:
-        abort(404)
     data = request.get_json()
     data['city_id'] = city_id
     new_place = Place(**data)
