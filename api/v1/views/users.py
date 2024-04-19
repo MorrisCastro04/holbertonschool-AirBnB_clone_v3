@@ -9,7 +9,7 @@ from models.user import User
 @app_views.route("/users", methods=["GET"], strict_slashes=False)
 def get_users(user_id):
     """Retrieves the list of all user objects"""
-    users = storage.get(User, user_id)
+    users = storage.all('User').values()
     users_list = []
     for user in users:
         users_list.append(user.to_dict())
@@ -34,7 +34,7 @@ def delete_user(user_id):
     else:
         storage.delete(user)
         storage.save()
-        return jsonify({}, 200)
+        return jsonify({}), 200
 
 
 @app_views.route("/users", methods=["POST"], strict_slashes=False)
