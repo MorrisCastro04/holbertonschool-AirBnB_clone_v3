@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" """
+"""This module defines the routes for handling the API status and stats"""
 from api.v1.views import app_views
 from flask import jsonify
 from api.v1.views import app_views
