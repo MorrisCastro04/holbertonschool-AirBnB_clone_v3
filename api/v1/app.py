@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" """
+"""This module defines the main Flask app for the API"""
 from flask import Flask
 from flask_cors import CORS
 from models import storage
@@ -14,6 +14,7 @@ app.register_blueprint(app_views)
 
 # CORS
 CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+
 
 # Status route
 @app.teardown_appcontext
